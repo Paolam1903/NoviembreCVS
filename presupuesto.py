@@ -1,0 +1,257 @@
+import pandas as pd
+
+# =====================
+# REGLA DE DISTRIBUCIÓN
+# =====================
+def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
+
+    cvs = str(cvs).upper()
+    nombre = str(nombre).upper() if nombre else ""
+           
+    # ==================================================
+    # ==================================================
+    # 🔴 REGLA ESPECIAL FRONTINO
+    # ==================================================
+    if cvs in ["SEGOVIA"]:
+        if rol == "LIDER":
+            return 0.50
+        else:
+            return 0.50
+
+    # ==================================================
+    # BELLO
+    # ==================================================
+
+    if cvs == "BELLO":
+
+        # Líder
+        if rol == "LIDER":
+            return 1008 / 2850
+
+        # Cristian
+        elif "CRISTIAN" in nombre:
+            return 1513 / 2850
+
+        # Diana
+        elif "DIANA" in nombre:
+            return 329 / 2850  
+
+    # ==================================================
+    # JUNIN
+    # ==================================================
+
+    if cvs == "JUNIN":
+
+        # Líder
+        if rol == "LIDER":
+            return 1518 / 6800
+
+        # Nasly Johanna
+        elif "NASLY" in nombre:
+            return 2153 / 6800
+
+        # Jessica
+        elif "JESSICA" in nombre:
+            return 976 / 6800
+
+        # Sandra Milena
+        elif "SANDRA" in nombre:
+            return 2153 / 6800
+
+    # ==================================================
+    # ITAGUI
+    # ==================================================
+
+    if cvs == "ITAGUI":
+
+        # Líder
+        if rol == "LIDER":
+            return 265 / 2500
+
+        # Dailyn
+        elif "DAILYN" in nombre:
+            return 937.5 / 2500
+
+        # Sara
+        elif "SARA" in nombre:
+            return 360 / 2500
+
+        # Andrea
+        elif "ANDREA" in nombre:
+            return 937.5 / 2500
+
+    # ==================================================
+    # DABEIBA
+    # ==================================================
+
+    if cvs == "DABEIBA":
+
+        # Líder
+        if rol == "LIDER":
+            return 1034 / 1200
+
+        # Yeilisa Fernanda
+        elif "YEILISA" in nombre:
+            return 166 / 1200
+        
+    # ==================================================
+    # EL BAGRE
+    # ==================================================
+
+    if cvs == "EL BAGRE":
+
+        # Líder
+        if rol == "LIDER":
+            return 821 / 3500
+
+        # Darly
+        elif "DARLY" in nombre:
+            return 1196 / 3500
+
+        # Jeider
+        elif "JEIDER" in nombre:
+            return 1196 / 3500
+
+        # Marvin
+        elif "MARVIN" in nombre:
+            return 287 / 3500  
+
+    # ==================================================
+    # COPACABANA
+    # ==================================================
+
+    if cvs == "COPACABANA":
+
+        # Lider
+        if rol == "LIDER":
+            return 231 / 3000
+
+        # Vanessa
+        elif "VANESSA" in nombre:
+            return 519 / 3000
+        
+        # Alexandra
+        elif "ALEXANDRA" in nombre:
+            return 1125 / 3000
+
+        # Bibiana
+        elif "BIBIANA" in nombre:
+            return 1125 / 3000  
+
+    # ==================================================
+    # FRONTINO
+    # ==================================================
+
+    if cvs == "FRONTINO":
+
+        # Líder
+        if rol == "LIDER":
+            return 1477 / 2400
+
+        # Yeilisa Fernanda
+        elif "YEILISA" in nombre:
+            return 923 / 2400
+    
+    # ==================================================
+    # 🔴 REGLAS NORMALES
+    # ==================================================
+
+    # Si no hay asesores
+    if n_asesores == 0:
+        return 1.0
+
+    if rol == "LIDER":
+
+        if n_asesores == 1:
+            return 0.40
+        elif n_asesores == 2:
+            return 0.25
+        elif n_asesores >= 3:
+            return 0.20
+
+    else:
+
+        if n_asesores == 1:
+            return 0.60
+        elif n_asesores == 2:
+            return 0.375
+        elif n_asesores >= 3:
+            return 0.266
+
+    return 1.0
+
+
+# =================================================
+# META GENERAL + EJECUCIÓN (RESUMEN POR CVS)
+# =================================================
+def resumen_meta_general_por_cvs(df):
+    resultados = []
+
+    for sucursal, grupo in df.groupby("Sucursal"):
+        meta_total = grupo["Meta_General"].iloc[0]
+
+        n_asesores = grupo[grupo["Rol"] == "ASESOR"]["Cedula_Vendedor"].nunique()
+        pct_lider, pct_asesores = calcular_distribucion(n_asesores, sucursal)
+
+
+        puntos_lider = grupo[grupo["Rol"] == "LIDER"]["Puntos"].sum()
+        puntos_asesores = grupo[grupo["Rol"] == "ASESOR"]["Puntos"].sum()
+
+        resultados.append({
+            "Sucursal": sucursal,
+            "Estructura": f"1 Líder + {n_asesores} Asesor(es)",
+
+            "Meta CVS": meta_total,
+
+            "Meta Líder": meta_total * pct_lider,
+            "Ejecutado Líder": puntos_lider,
+            "Cumplimiento Líder %": round(
+                (puntos_lider / (meta_total * pct_lider)) * 100, 2
+            ) if meta_total * pct_lider > 0 else 0,
+
+            "Meta Asesores": meta_total * pct_asesores,
+            "Ejecutado Asesores": puntos_asesores,
+            "Cumplimiento Asesores %": round(
+                (puntos_asesores / (meta_total * pct_asesores)) * 100, 2
+            ) if meta_total * pct_asesores > 0 else 0,
+        })
+
+    return pd.DataFrame(resultados)
+
+
+# =================================================
+# KPI POR PRODUCTO + EJECUCIÓN (RESUMEN POR CVS)
+# =================================================
+def resumen_kpi_producto_por_cvs(df):
+    resultados = []
+
+    for (sucursal, producto), grupo in df.groupby(["Sucursal", "Producto"]):
+        meta_producto = grupo["Meta_Producto"].iloc[0]
+
+        n_asesores = grupo[grupo["Rol"] == "ASESOR"]["Cedula_Vendedor"].nunique()
+        pct_lider, pct_asesores = calcular_distribucion(n_asesores, sucursal)
+
+
+        puntos_lider = grupo[grupo["Rol"] == "LIDER"]["Puntos"].sum()
+        puntos_asesores = grupo[grupo["Rol"] == "ASESOR"]["Puntos"].sum()
+
+        resultados.append({
+            "Sucursal": sucursal,
+            "Producto": producto,
+
+            "Meta Producto": meta_producto,
+
+            "Meta Líder": meta_producto * pct_lider,
+            "Ejecutado Líder": puntos_lider,
+            "Cumplimiento Líder %": round(
+                (puntos_lider / (meta_producto * pct_lider)) * 100, 2
+            ) if meta_producto * pct_lider >= 0 else 0,
+
+            "Meta Asesores": meta_producto * pct_asesores,
+            "Ejecutado Asesores": puntos_asesores,
+            "Cumplimiento Asesores %": round(
+                (puntos_asesores / (meta_producto * pct_asesores)) * 100, 2
+            ) if meta_producto * pct_asesores >= 0 else 0,
+        })
+
+    return pd.DataFrame(resultados)

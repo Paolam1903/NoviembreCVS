@@ -12,11 +12,52 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
     # ==================================================
     # 🔴 REGLA ESPECIAL FRONTINO
     # ==================================================
-    if cvs in ["SEGOVIA"]:
+    if cvs in ["FRONTINO", "SEGOVIA"]:
         if rol == "LIDER":
             return 0.50
         else:
             return 0.50
+
+    # ==================================================
+    # TERMINAL DEL NORTE
+    # ==================================================
+
+    if cvs == "TERMINAL DEL NORTE":
+
+        # Líder
+        if rol == "LIDER":
+            return 728 / 2200
+
+        # Luz
+        elif "LUZ" in nombre:
+            return 267 / 2200
+
+        # Diana
+        elif "DIANA" in nombre:
+            return 1205 / 2200
+
+    # ==================================================
+    # CALDAS
+    # ==================================================
+
+    if cvs == "CALDAS":
+
+        # Líder
+        if rol == "LIDER":
+            return 724 / 3700
+
+        # Yolima
+        elif "YOLIMA" in nombre:
+            return 201 / 3700
+
+        # Johnson
+        elif "JOHNSON" in nombre:
+            return 1287 / 3700
+
+        # Darinela
+        elif "DARINELA" in nombre:
+            return 1287 / 3700
+
 
 
     # ==================================================

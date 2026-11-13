@@ -34,7 +34,7 @@ if not RUTA_LIQ.exists() or not RUTA_METAS.exists():
 # =============================
 st.markdown("""
 <div style="background-color:#E30613;padding:15px;border-radius:10px">
-<h1 style="color:white;text-align:center">📊 Dashboard Comercial ventas al 5 de noviembre y CVS PLUS, ecuestas – Accesorios pendiente</h1>
+<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta al 12, CVS PLUS al 10, Accesorio al 11– encuensta pendiente</h1>
 </div>
 """, unsafe_allow_html=True)
 
@@ -541,8 +541,8 @@ with col2:
 # SUPERNUMERARIOS
 # =====================
 SUPERNUMERARIOS = [
-    "Johan Daniel Herrera Mazo",
     "Kelly Yuliana Ospina Saldarriaga",
+    "Liliana Carpio Causado",
     "Sara Julieth Acevedo Gutierrez"
 ]
 
@@ -559,14 +559,53 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
     # ==================================================
     # 🔴 REGLA ESPECIAL FRONTINO
     # ==================================================
-    if cvs in ["SEGOVIA"]:
+    if cvs in ["FRONTINO", "SEGOVIA"]:
         if rol == "LIDER":
             return 0.50
         else:
             return 0.50
 
-   
-        
+    # ==================================================
+    # TERMINAL DEL NORTE
+    # ==================================================
+
+    if cvs == "TERMINAL DEL NORTE":
+
+        # Líder
+        if rol == "LIDER":
+            return 728 / 2200
+
+        # Luz
+        elif "LUZ" in nombre:
+            return 267 / 2200
+
+        # Diana
+        elif "DIANA" in nombre:
+            return 1205 / 2200
+
+    # ==================================================
+    # CALDAS
+    # ==================================================
+
+    if cvs == "CALDAS":
+
+        # Líder
+        if rol == "LIDER":
+            return 724 / 3700
+
+        # Yolima
+        elif "YOLIMA" in nombre:
+            return 201 / 3700
+
+        # Johnson
+        elif "JOHNSON" in nombre:
+            return 1287 / 3700
+
+        # Darinela
+        elif "DARINELA" in nombre:
+            return 1287 / 3700
+
+ 
     # ==================================================
     # 🔴 REGLAS NORMALES
     # ==================================================
@@ -661,6 +700,11 @@ def construir_tabla_productos(df_vendedor, maestro, df_cvs, rol):
         nombre,
         rol
     )
+
+
+
+
+
 
     # =========================
     # EJECUTADO PRODUCTOS

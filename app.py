@@ -34,7 +34,7 @@ if not RUTA_LIQ.exists() or not RUTA_METAS.exists():
 # =============================
 st.markdown("""
 <div style="background-color:#E30613;padding:15px;border-radius:10px">
-<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta al 12, CVS PLUS al 10, Accesorio al 11– encuensta pendiente</h1>
+<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta al 18, CVS PLUS al 17, Accesorio al 14– encuestas al 11</h1>
 </div>
 """, unsafe_allow_html=True)
 
@@ -307,7 +307,7 @@ if cvs_sel and cvs_sel != "Todos":
 # =============================
 # TABS
 # =============================
-tab1, tab2, tab3 = st.tabs(["📊 Dashboard", "💰 Presupuesto / Comisión", "⚖️Cumplimiento General"])
+tab1, tab2, tab3 = st.tabs(["📊 Dashboard", "💰 Presupuesto / Comisión noviembre", "⚖️Cumplimiento General"])
 
 # =============================
 # TAB 1 – DASHBOARD
@@ -442,9 +442,7 @@ with tab1:
         st.pyplot(fig, clear_figure=True)
         plt.close(fig)
 
-    # =============================
-    # META GENERAL
-    # =============================
+
 # =============================
 # META GENERAL VS EJECUTADO
 # =============================
@@ -536,13 +534,12 @@ with col2:
     plt.close(fig)
 
 
-
 # =====================
 # SUPERNUMERARIOS
 # =====================
 SUPERNUMERARIOS = [
+    "Liliana  Carpio Causado",
     "Kelly Yuliana Ospina Saldarriaga",
-    "Liliana Carpio Causado",
     "Sara Julieth Acevedo Gutierrez"
 ]
 
@@ -566,22 +563,26 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
             return 0.50
 
     # ==================================================
-    # TERMINAL DEL NORTE
+    # TERMINAL NORTE
     # ==================================================
 
-    if cvs == "TERMINAL DEL NORTE":
+    if cvs == "TERMINAL NORTE":
 
         # Líder
         if rol == "LIDER":
-            return 728 / 2200
+            return 454 / 2200
 
         # Luz
         elif "LUZ" in nombre:
-            return 267 / 2200
+            return 125 / 2200
 
         # Diana
         elif "DIANA" in nombre:
-            return 1205 / 2200
+            return 753 / 2200
+
+        # Maria
+        elif "MARIA" in nombre:
+            return 868 / 2200
 
     # ==================================================
     # CALDAS
@@ -605,7 +606,20 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
         elif "DARINELA" in nombre:
             return 1287 / 3700
 
- 
+    # ==================================================
+    # GIRARDOTA
+    # ==================================================
+
+    if cvs == "GIRARDOTA":
+
+        # Líder
+        if rol == "LIDER":
+            return 383 / 2000
+
+        #  Narelig
+        elif "NARELIG" in nombre:
+            return 1617 / 2000
+
     # ==================================================
     # 🔴 REGLAS NORMALES
     # ==================================================

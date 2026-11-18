@@ -19,22 +19,27 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
             return 0.50
 
     # ==================================================
-    # TERMINAL DEL NORTE
+    # ==================================================
+    # TERMINAL NORTE
     # ==================================================
 
-    if cvs == "TERMINAL DEL NORTE":
+    if cvs == "TERMINAL NORTE":
 
         # Líder
         if rol == "LIDER":
-            return 728 / 2200
+            return 454 / 2200
 
         # Luz
         elif "LUZ" in nombre:
-            return 267 / 2200
+            return 125 / 2200
 
         # Diana
         elif "DIANA" in nombre:
-            return 1205 / 2200
+            return 753 / 2200
+
+        # Maria
+        elif "MARIA" in nombre:
+            return 868 / 2200
 
     # ==================================================
     # CALDAS
@@ -58,7 +63,19 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
         elif "DARINELA" in nombre:
             return 1287 / 3700
 
+    # ==================================================
+    # GIRARDOTA
+    # ==================================================
 
+    if cvs == "GIRARDOTA":
+
+        # Líder
+        if rol == "LIDER":
+            return 383 / 2000
+
+        #  Narelig
+        elif "NARELIG" in nombre:
+            return 1617 / 2000
 
     # ==================================================
     # 🔴 REGLAS NORMALES

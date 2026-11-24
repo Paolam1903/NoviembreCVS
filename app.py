@@ -34,7 +34,7 @@ if not RUTA_LIQ.exists() or not RUTA_METAS.exists():
 # =============================
 st.markdown("""
 <div style="background-color:#E30613;padding:15px;border-radius:10px">
-<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta y CVS PLUS al 17, Accesorio al 14– encuestas al 11</h1>
+<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta de noviembre al 23 y CVS PLUS al 19, Accesorio al 14– encuestas al 11</h1>
 </div>
 """, unsafe_allow_html=True)
 
@@ -556,7 +556,7 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
     # ==================================================
     # 🔴 REGLA ESPECIAL FRONTINO
     # ==================================================
-    if cvs in ["FRONTINO", "SEGOVIA"]:
+    if cvs in ["SEGOVIA"]:
         if rol == "LIDER":
             return 0.50
         else:
@@ -619,6 +619,88 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
         #  Narelig
         elif "NARELIG" in nombre:
             return 1617 / 2000
+
+    # ==================================================
+    # DABEIBA
+    # ==================================================
+
+    if cvs == "DABEIBA":
+
+        # Líder
+        if rol == "LIDER":
+            return 1075 / 1200
+
+        # Yeilisa Fernanda
+        elif "YEILISA" in nombre:
+            return 125 / 1200
+
+    # ==================================================
+    # FRONTINO
+    # ==================================================
+
+    if cvs == "FRONTINO":
+
+        # Líder
+        if rol == "LIDER":
+            return 1211 / 2400
+
+        # Yeilisa Fernanda
+        elif "YEILISA" in nombre:
+            return 1189 / 2400
+
+    # ==================================================
+    # LA ESTRELLA
+    # ==================================================
+
+    if cvs == "LA ESTRELLA":
+
+        # Líder
+        if rol == "LIDER":
+            return 940 / 1200
+
+        # Jhon
+        elif "JHON" in nombre:
+            return 104 / 1200
+
+        # Yeilisa Fernanda
+        elif "YEILISA" in nombre:
+            return 156 / 1200
+
+    # ==================================================
+    # ENVIGADO
+    # ==================================================
+
+    if cvs == "ENVIGADO":
+
+        # Líder
+        if rol == "LIDER":
+            return 944 / 3500
+
+        # Luz
+        elif "LUZ" in nombre:
+            return 1415 / 3500
+
+        # Yessica
+        elif "YESSICA" in nombre:
+            return 1141 / 3500 
+
+    # ==================================================
+    # BARBOSA
+    # ==================================================
+
+    if cvs == "BARBOSA":
+
+        # Líder
+        if rol == "LIDER":
+            return 400 / 2400
+
+        # Sara
+        elif "SARA" in nombre:
+            return 560 / 2400
+
+        # Evelis
+        elif "EVELIS" in nombre:
+            return 1440 / 2400  
 
     # ==================================================
     # 🔴 REGLAS NORMALES

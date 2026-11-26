@@ -157,7 +157,25 @@ def calcular_distribucion(n_asesores, cvs, nombre=None, rol=None):
 
         # Evelis
         elif "EVELIS" in nombre:
-            return 1440 / 2400  
+            return 1440 / 2400 
+
+    # ==================================================
+    # ITAGUI
+    # ==================================================
+
+    if cvs == "ITAGUI":
+
+        # Líder
+        if rol == "LIDER":
+            return 805 / 2500
+
+        # Dailyn
+        elif "DAILYN" in nombre:
+            return 1206 / 2500
+
+        # Luisa
+        elif "LUISA" in nombre:
+            return 489 / 2500  
 
 
     # ==================================================

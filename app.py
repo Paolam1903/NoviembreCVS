@@ -34,7 +34,7 @@ if not RUTA_LIQ.exists() or not RUTA_METAS.exists():
 # =============================
 st.markdown("""
 <div style="background-color:#E30613;padding:15px;border-radius:10px">
-<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta y accesorio al 23 de noviembre, CVS PLUS al 19, – encuestas al 11</h1>
+<h1 style="color:white;text-align:center">📊 Dashboard Comercial venta al 26 de noviembre, CVS PLUS y encuestas al 24, – accesorio al 23</h1>
 </div>
 """, unsafe_allow_html=True)
 
@@ -540,6 +540,7 @@ with col2:
 SUPERNUMERARIOS = [
     "Liliana  Carpio Causado",
     "Kelly Yuliana Ospina Saldarriaga",
+    "Ana Maria Rojas Molina",
     "Sara Julieth Acevedo Gutierrez"
 ]
 
